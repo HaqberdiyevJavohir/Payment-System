@@ -4,9 +4,15 @@ import com.example.paymentsysteminjava.entity.AgentEntity;
 import com.example.paymentsysteminjava.entity.MerchantEntity;
 import com.example.paymentsysteminjava.entity.MerchantServiceEntity;
 import com.example.paymentsysteminjava.entity.transaction.TransactionEntity;
+import lombok.Getter;
+import lombok.Setter;
 
-
+@Getter
+@Setter
 public class DefaultAgentResponse implements BaseAgentResponse {
+
+
+
     @Override
     public BaseAgentResponse success(AgentEntity agent, MerchantEntity merchantEntity, MerchantServiceEntity merchantServiceEntity, TransactionEntity transaction) {
         return null;

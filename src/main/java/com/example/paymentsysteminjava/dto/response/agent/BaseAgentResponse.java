@@ -5,8 +5,13 @@ import com.example.paymentsysteminjava.entity.MerchantEntity;
 import com.example.paymentsysteminjava.entity.MerchantServiceEntity;
 import com.example.paymentsysteminjava.entity.transaction.TransactionEntity;
 import com.example.paymentsysteminjava.entity.transaction.TransactionState;
+import lombok.Getter;
+import org.springframework.data.repository.cdi.Eager;
+
 
 public interface BaseAgentResponse {
+
+
     default BaseAgentResponse response(
             AgentEntity agent,
             MerchantEntity merchantEntity,

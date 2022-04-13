@@ -2,7 +2,9 @@ package com.example.paymentsysteminjava.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,16 +12,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class UserEntity extends BaseEntity implements UserDetails {
 
     protected String name;
-    protected String permission = "ROLE_USER";
+    protected String permission;
 
 
 
@@ -36,9 +41,12 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority(permission));
-        return authorities;
+//        Set<GrantedAuthority> authorities = new HashSet<>();
+//        for (String permission: permissions) {
+//            authorities.add(new SimpleGrantedAuthority(permission));
+//        }
+
+        return List.of(new SimpleGrantedAuthority(permission));
     }
 
     @Override
@@ -71,27 +79,27 @@ public class UserEntity extends BaseEntity implements UserDetails {
         return true;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPermission() {
-        return permission;
-    }
-
-    public void setPermission(String permission) {
-        this.permission = permission;
-    }
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public void setUsername(String username) {
+//        this.username = username;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
+//
+//    public String getPermission() {
+//        return getAuthorities();
+//    }
+//
+//    public void setPermission(List<String> permissions) {
+//        this.permissions = permissions;
+//    }
 }

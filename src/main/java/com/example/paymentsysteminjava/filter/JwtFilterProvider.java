@@ -4,7 +4,8 @@ import com.example.paymentsysteminjava.dto.response.ApiExceptionResponse;
 import com.example.paymentsysteminjava.entity.UserEntity;
 import com.example.paymentsysteminjava.exception.JwtExpiredTokenException;
 import com.example.paymentsysteminjava.exception.JwtValidationException;
-import com.example.paymentsysteminjava.servise.jwt.JwtProvider;
+import com.example.paymentsysteminjava.repository.UserRepository;
+import com.example.paymentsysteminjava.service.jwt.JwtProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class JwtFilterProvider extends OncePerRequestFilter {
 
     private final JwtProvider jwtProvider;
     private final ObjectMapper objectMapper;
+    private final UserRepository userRepository;
 
     @Override
     protected void doFilterInternal
@@ -48,8 +50,7 @@ public class JwtFilterProvider extends OncePerRequestFilter {
         }
 
 
-        UserEntity userEntity = new UserEntity();
-        userEntity.setPermission((String) claims.get("authorities"));
+        UserEntity userEntity = userRepository.findByUsername(claims.getSubject()).get();
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 claims.getSubject(),

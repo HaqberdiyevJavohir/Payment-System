@@ -19,7 +19,7 @@ import java.util.Date;
 public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    Long id;
+    long id;
 
     @CreatedBy
     private String createdBy;

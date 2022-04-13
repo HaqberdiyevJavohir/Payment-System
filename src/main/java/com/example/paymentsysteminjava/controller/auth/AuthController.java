@@ -1,15 +1,13 @@
 package com.example.paymentsysteminjava.controller.auth;
 
 import com.example.paymentsysteminjava.dto.UserLoginDto;
+import com.example.paymentsysteminjava.dto.UserRegisterDto;
 import com.example.paymentsysteminjava.dto.response.ApiJwtResponse;
-import com.example.paymentsysteminjava.entity.AgentEntity;
 import com.example.paymentsysteminjava.entity.UserEntity;
 import com.example.paymentsysteminjava.repository.UserRepository;
-import com.example.paymentsysteminjava.servise.agent.AgentServiceImp;
-import com.example.paymentsysteminjava.servise.jwt.JwtProvider;
-import com.example.paymentsysteminjava.servise.user.UserService;
+import com.example.paymentsysteminjava.service.jwt.JwtProvider;
+import com.example.paymentsysteminjava.service.user.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final JwtProvider jwtProvider;
+
     private final UserService userService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -52,6 +51,13 @@ public class AuthController {
     public ResponseEntity<?> getRefreshToken(@RequestBody String token) {
         String accessToken = jwtProvider.getAccessTokenFromRefreshToken(token);
         return ResponseEntity.ok().body(new ApiJwtResponse(1, accessToken, token));
+    }
+
+    @PostMapping("/add_admin")
+    public ResponseEntity<?> addAdmin(
+            @RequestBody UserRegisterDto userRegisterDto
+            ){
+        return ResponseEntity.ok(userService.add(userRegisterDto));
     }
 
 //    @PostMapping("/add_admin")

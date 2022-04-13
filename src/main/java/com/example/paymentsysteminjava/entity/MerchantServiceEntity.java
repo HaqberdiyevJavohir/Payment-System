@@ -13,7 +13,8 @@ import javax.persistence.ManyToOne;
 public class MerchantServiceEntity {
 
     @Id
-    private String id;
+    private Long id;
+    private String name;
 
     @ManyToOne
     private MerchantEntity merchantEntity;

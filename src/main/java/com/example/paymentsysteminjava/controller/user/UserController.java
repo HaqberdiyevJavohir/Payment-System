@@ -1,8 +1,8 @@
 package com.example.paymentsysteminjava.controller.user;
 
 import com.example.paymentsysteminjava.dto.UserRegisterDto;
-import com.example.paymentsysteminjava.servise.jwt.JwtProvider;
-import com.example.paymentsysteminjava.servise.user.UserService;
+import com.example.paymentsysteminjava.service.jwt.JwtProvider;
+import com.example.paymentsysteminjava.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,22 +13,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.ObjectInputStream;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user/")
 public class UserController {
 
     @Qualifier("u")
-    private UserService userService;
+    private final UserService userService;
+    private final JwtProvider jwtProvider;
 
-    @Autowired
-    private JwtProvider jwtProvider;
 
-    @PreAuthorize("hasRole('ROLE_SUPER_ADMIN')")
+
     @PostMapping("/add")
-    public ResponseEntity<Boolean> add(@RequestBody UserRegisterDto userRegisterDto){
+    public ResponseEntity<?> add(@RequestBody UserRegisterDto userRegisterDto){
         return ResponseEntity.ok(userService.add(userRegisterDto));
     }
 

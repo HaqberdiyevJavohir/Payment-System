@@ -11,20 +11,17 @@ import javax.persistence.Transient;
 @Getter
 @Setter
 public class MerchantEntity extends BaseEntity{
-    private String name;
 
-    @Column(unique = true)
+    private String secretKey;
     private String username;
     private String password;
 
-    private String secretKey;
-
 
 
     @Transient
-    private Boolean isUcell  = true;
+    private Boolean isUcell  = (super.id == 30);
     @Transient
-    private Boolean isYandex = false;
+    private Boolean isYandex = (super.id == 20);
     @Transient
-    private Boolean isPayme  = false;
+    private Boolean isPayme  = (super.id == 10);
 }

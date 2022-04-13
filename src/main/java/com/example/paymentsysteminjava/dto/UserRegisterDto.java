@@ -14,6 +14,6 @@ public class UserRegisterDto {
     private String username;
     private String password;
     private String name;
-    private List<String> permission;
+    private String permission;
 
 }
